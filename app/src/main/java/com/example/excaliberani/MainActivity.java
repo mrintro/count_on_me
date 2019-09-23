@@ -1,8 +1,11 @@
+//NOT MAIN ACTIVITY
+
 package com.example.excaliberani;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<FeedData> feed = new ArrayList<FeedData>();
     ArrayList<String> names = new ArrayList<String>();
+//    Intent intent = new
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
