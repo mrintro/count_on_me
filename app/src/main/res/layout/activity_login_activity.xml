@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-3dp"
+        android:layout_marginLeft="-3dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginBottom="0dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/ex" />
+
+    <EditText
+        android:id="@+id/lemail"
+        android:layout_width="312dp"
+        android:layout_height="54dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginBottom="196dp"
+        android:background="@drawable/sign"
+        android:hint="E-mail"
+        android:paddingLeft="18dp" />
+
+    <EditText
+        android:id="@+id/lpass"
+        android:layout_width="312dp"
+        android:layout_height="54dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginBottom="121dp"
+        android:background="@drawable/sign"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="18dp" />
+
+    <Button
+        android:id="@+id/lbutton"
+        android:layout_width="312dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="43dp"
+        android:layout_marginBottom="53dp"
+        android:background="@drawable/bgbutton"
+        android:text="Log-In"
+        android:textColor="#0F0F0F"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="240dp"
+        android:layout_height="74dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="283dp"
+        android:gravity="center"
+        android:text="Welcome Back!"
+        android:textColor="#000000"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="240dp"
+        android:layout_height="74dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-10dp"
+        android:gravity="center"
+        android:text=" Swipe Left to Register"
+        android:textColor="#FF0000"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+
+</RelativeLayout>
