@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public ArrayList<String> req;
 
 
     @Override
