@@ -1,5 +1,5 @@
 //CUSTOM ADAPTER FOR NEWS FEED ACTIVITY
-
+//git change
 package com.example.excaliberani;
 
 import android.content.Context;
