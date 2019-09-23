@@ -1,6 +1,9 @@
+//CUSTOM ADAPTER FOR NEWS FEED ACTIVITY
+//git change
 package com.example.excaliberani;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -56,55 +59,8 @@ public class CustumAdapter extends BaseAdapter {
         return position;
     }
 
-    /*@Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View itemView=null;
-        if(inflater==null){
-            inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.feed_list_view, null);
-
-            itemView = convertView;
-        }
-
-*//*        if(inflater==null){
-            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        }*//*
-
-        //convertView=inflater.inflate(R.layout.feed_list_view,parent,false);
-
-
-//        Toast.makeText(convertView.getContext(),"here",Toast.LENGTH_SHORT).show();
-
-        TextView namet = (TextView) itemView.findViewById(R.id.excal_name);
-        TextView mail = (TextView) itemView.findViewById(R.id.excal_id);
-        TextView pick = (TextView) itemView.findViewById(R.id.excal_pickup);
-        TextView drop = (TextView) itemView.findViewById(R.id.excal_dropdown);
-        TextView data = (TextView) itemView.findViewById(R.id.excal_Data);
-//        Button btn = (Button) itemView.findViewById(R.id.excal_feed_accept);
-        String nm = name.get(position);
-        namet.setText(nm);
-
-
-        mail.setText("t1");
-        data.setText("t2");
-        drop.setText("t3");
-
-        pick.setText("t4");
-
-        *//*btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(BaseAdapter.this,"YES", Toast.LENGTH_SHORT).show();
-            }
-        });*//*
-
-        return itemView;
-    }*/
-
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         View x = null;
         if(inflater==null){
@@ -126,11 +82,19 @@ public class CustumAdapter extends BaseAdapter {
         t3.setText(queries.get(position).getRequest());
         t4.setText(queries.get(position).getPickup());
         t5.setText(queries.get(position).getDropdown());
+        Bundle b = new Bundle();
 
+        b.putString("email",queries.get(position).getEmail());
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle b = new Bundle();
+
+//                b.putString("email",queries.get(position).getEmail());
+                Intent intent = new Intent(context,accept_req_page.class);
+                intent.putExtra("email",queries.get(position).getEmail());
+                context.startActivity(intent);
+
 
             }
         });
