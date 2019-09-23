@@ -14,8 +14,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ew_feed_page"></activity>
         <activity android:name=".Registration" />
-        <activity android:name=".Login_activity" />
+        <activity android:name=".sendFriendRequest"></activity>
+        <activity android:name=".friendRequest" />
         <activity android:name=".accept_req_page" />
+        <activity android:name=".Login_activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,5 +26,8 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

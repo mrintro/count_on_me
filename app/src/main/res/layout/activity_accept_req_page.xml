@@ -6,10 +6,85 @@
     android:layout_height="match_parent"
     tools:context=".accept_req_page">
 
-    <TextView
+    <Button
+        android:id="@+id/excal_accept_order"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="abc"
-        android:id="@+id/t1"/>
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:text="Accept Request"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
+    <EditText
+        android:id="@+id/excal_order_of"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="E-Mail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/excal_drop_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Drop Location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/excal_order_of"
+        app:layout_constraintVertical_bias="0.168" />
+
+    <TextView
+        android:id="@+id/excal_pick_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick up Location"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.318" />
+
+    <TextView
+        android:id="@+id/excal_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Request"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/excal_submit_to"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Give it to.."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.633" />
+
+    <Button
+        android:id="@+id/excal_show_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Info"
+        app:layout_constraintBottom_toBottomOf="@+id/excal_accept_order"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.729" />
 </androidx.constraintlayout.widget.ConstraintLayout>
