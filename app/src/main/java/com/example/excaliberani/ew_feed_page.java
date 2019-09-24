@@ -21,29 +21,36 @@ import java.util.HashMap;
 
 public class ew_feed_page extends AppCompatActivity {
 
-//    RememberUser userx;
-//    HashMap<String, String> reg_user = userx.getUserDetails();
-//    String user_mail = reg_user.get(RememberUser.EMAIL);
 
-    TextView t = (TextView)findViewById(R.id.xy);
-    Button log_out=(Button)findViewById(R.id.log_out);
+    private TextView t;
+    private Button log_out;
 
     public ArrayList<String> req;
     DatabaseReference db;
     ListView lv;
+    RememberUser userx;
 
     ArrayList<FeedData> feed = new ArrayList<FeedData>();
     ArrayList<String> names = new ArrayList<String>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ew_feed_page);
+
+        t = (TextView)findViewById(R.id.xy);
+        log_out =(Button)findViewById(R.id.log_out);
+        userx=new RememberUser(this);
+        HashMap<String, String> reg_user = userx.getUserDetails();
+        String user_mail = reg_user.get(RememberUser.EMAIL);
+
         lv = (ListView) findViewById(R.id.excal_list_feed);
-        t.setText("Hello");
+        t.setText(user_mail);
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                userx.logOutUser();
             }
         });
         db= FirebaseDatabase.getInstance().getReference();
@@ -66,7 +73,6 @@ public class ew_feed_page extends AppCompatActivity {
 
 
     }
-
 
     private void runadap() {
         CustumAdapter cd = new CustumAdapter(ew_feed_page.this,feed,names);

@@ -96,7 +96,7 @@ public class Login_activity extends AppCompatActivity {
                                 } else {
                                     user.createLoginSession(email, pwd);
                                     finish();
-                                    Intent intToHome = new Intent(Login_activity.this, MainActivity.class);
+                                    Intent intToHome = new Intent(Login_activity.this, ew_feed_page.class);
                                     startActivity(intToHome);
                                 }
                             }

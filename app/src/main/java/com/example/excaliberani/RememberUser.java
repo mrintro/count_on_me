@@ -45,6 +45,12 @@ public class RememberUser {
             context.startActivity(intent);
             //        return true;
         }
+        else{
+
+            Intent intent=new Intent(context,Login_activity.class);
+            context.startActivity(intent);
+//            return;
+        }
         //   return false;
     }
 
@@ -52,6 +58,11 @@ public class RememberUser {
         editor=preferences.edit();
         editor.clear();
         editor.commit();
+        Intent intent = new Intent(context,Login_activity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+
     }
 
     public HashMap<String, String> getUserDetails(){

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -47,8 +48,8 @@ public class Registration extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         databaseReference= FirebaseDatabase.getInstance().getReference();
 
-
         final Userdetails userdetails= new Userdetails();
+
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +61,7 @@ public class Registration extends AppCompatActivity {
                 progressDialog.show();
                 Email orig_mail= new Email(email);
                 final String key_email=orig_mail.convert_mail(email);
+                mAuth = FirebaseAuth.getInstance();
 
                 userdetails.setemail(email);
                 userdetails.setname(name);
@@ -73,7 +75,17 @@ public class Registration extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
-                                        mAuth.createUserWithEmailAndPassword(email,password);
+                                        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()){
+                                                    Toast.makeText(Registration.this,"succ",Toast.LENGTH_SHORT).show();
+                                                }
+                                                else{
+                                                    Toast.makeText(Registration.this,"pfft",Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                                         progressDialog.dismiss();
                                         Toast.makeText(Registration.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                                     }
