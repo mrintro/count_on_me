@@ -39,9 +39,6 @@ public class CustumAdapter extends BaseAdapter {
         this.context = context;
         this.queries = queries;
         this.name = name;
-
-
-
     }
 
     @Override
@@ -95,14 +92,9 @@ public class CustumAdapter extends BaseAdapter {
                 intent.putExtra("email",queries.get(position).getEmail());
                 context.startActivity(intent);
 
-
             }
         });
 
-
-
-        //TextView t2 = (TextView)x.findViewById(R.id.id2);
-        //t2.setText(str.get(position));
         return x;
     }
 
