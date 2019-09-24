@@ -52,11 +52,12 @@ public class Registration extends AppCompatActivity {
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 validateDataFromEditText();
+                Toast.makeText(Registration.this, "haha", Toast.LENGTH_SHORT).show();
                 progressDialog.setMessage("Registering...");
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 Email orig_mail= new Email(email);
                 final String key_email=orig_mail.convert_mail(email);
 
@@ -114,7 +115,7 @@ public class Registration extends AppCompatActivity {
                 return;
             }
         }
-
+        return;
 
     }
 }

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-   // public ArrayList<String> req;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,6 +5,7 @@ package com.example.excaliberani;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class Login_activity extends AppCompatActivity {
     TextView tvSignUp;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private ProgressDialog progressDialog;
     private DatabaseReference db;
 
 

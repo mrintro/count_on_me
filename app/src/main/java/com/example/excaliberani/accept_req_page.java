@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+//import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +26,8 @@ public class accept_req_page extends AppCompatActivity {
 
 
     DatabaseReference requestDatabase,fetch;
-    EditText email;
+    TextView emails;
+    String email;
     TextView submitTo,request,dropLocation,pickUpLocation;
     Button acceptOrder,showInfo;
 
@@ -34,13 +35,18 @@ public class accept_req_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_req_page);
+        Intent intent = getIntent();
+        email = intent.getStringExtra("email");
 
         submitTo=findViewById(R.id.excal_submit_to);
         pickUpLocation=findViewById(R.id.excal_pick_up);
         dropLocation=findViewById(R.id.excal_drop_location);
         request=findViewById(R.id.excal_request);
-        email=findViewById(R.id.excal_order_of);
+        emails=findViewById(R.id.excal_order_of);
         acceptOrder=findViewById(R.id.excal_accept_order);
+
+        emails.setText(email);
+
         requestDatabase= FirebaseDatabase.getInstance().getReference("Requests");
         fetch= FirebaseDatabase.getInstance().getReference();
         showInfo=findViewById(R.id.excal_show_info);
@@ -48,7 +54,7 @@ public class accept_req_page extends AppCompatActivity {
         showInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String semail=convert_mail(email.getText().toString().trim());
+                final String semail=convert_mail(email);
                 requestDatabase.child(semail).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -68,7 +74,7 @@ public class accept_req_page extends AppCompatActivity {
         acceptOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String semail=email.getText().toString().trim();
+                final String semail=email;
                 AlertDialog.Builder builder =new AlertDialog.Builder(accept_req_page.this);
                 builder.setMessage("Do you want to confirm "+semail+"'s request?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
