@@ -26,12 +26,15 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
+   // public ArrayList<String> req;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        RememberUser rememberUser=new RememberUser(this);
+        rememberUser.checkLogin();
+        Intent intent=new Intent(MainActivity.this,ew_feed_page.class);
+        startActivity(intent);
     }
 }

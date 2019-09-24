@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,8 +17,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ew_feed_page extends AppCompatActivity {
+
+//    RememberUser userx;
+//    HashMap<String, String> reg_user = userx.getUserDetails();
+//    String user_mail = reg_user.get(RememberUser.EMAIL);
+
+    TextView t = (TextView)findViewById(R.id.xy);
+    Button log_out=(Button)findViewById(R.id.log_out);
 
     public ArrayList<String> req;
     DatabaseReference db;
@@ -28,7 +39,13 @@ public class ew_feed_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ew_feed_page);
         lv = (ListView) findViewById(R.id.excal_list_feed);
+        t.setText("Hello");
+        log_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
         db= FirebaseDatabase.getInstance().getReference();
         db.addValueEventListener(new ValueEventListener() {
             @Override

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,7 @@ public class Registration extends AppCompatActivity {
     EditText username,emailid,phone,passwd; //for fetching details from editText(registration form)
     String name,email,phonenumber,password,body; //where actual details of user are stored
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -44,6 +46,7 @@ public class Registration extends AppCompatActivity {
         proceedButton = (Button) findViewById(R.id.rbutton);
         progressDialog = new ProgressDialog(this);
         databaseReference= FirebaseDatabase.getInstance().getReference();
+
 
         final Userdetails userdetails= new Userdetails();
         proceedButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +72,7 @@ public class Registration extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
+                                        mAuth.createUserWithEmailAndPassword(email,password);
                                         progressDialog.dismiss();
                                         Toast.makeText(Registration.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                                     }

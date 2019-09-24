@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,10 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Login_activity extends AppCompatActivity {
     float x1,x2,y1,y2;
@@ -27,6 +33,7 @@ public class Login_activity extends AppCompatActivity {
     TextView tvSignUp;
     FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private DatabaseReference db;
 
 
     @Override
@@ -37,6 +44,8 @@ public class Login_activity extends AppCompatActivity {
         emailId = findViewById(R.id.lemail);
         password = findViewById(R.id.lpass);
         btnSignIn = findViewById(R.id.lbutton);
+        db= FirebaseDatabase.getInstance().getReference();
+        final RememberUser user=new RememberUser(this);
         //tvSignUp = findViewById(R.id.textView);
         //aniketWalaKaam = findViewById(R.id.excal_final_accpet_request);
 
@@ -60,8 +69,8 @@ public class Login_activity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailId.getText().toString();
-                String pwd = password.getText().toString();
+                final String email = emailId.getText().toString().trim();
+                final String pwd = password.getText().toString().trim();
                 if(email.isEmpty()){
                     emailId.setError("Please enter email id");
                     emailId.requestFocus();
@@ -73,20 +82,33 @@ public class Login_activity extends AppCompatActivity {
                 else  if(email.isEmpty() && pwd.isEmpty()){
                     Toast.makeText(Login_activity.this,"Fields Are Empty!",Toast.LENGTH_SHORT).show();
                 }
-                else  if(!(email.isEmpty() && pwd.isEmpty())){
-                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(Login_activity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(!task.isSuccessful()){
-                                Toast.makeText(Login_activity.this,"Login Error, Please Login Again",Toast.LENGTH_SHORT).show();
+                else  if(!(email.isEmpty() && pwd.isEmpty())) {
+//                    HashMap<String, String> reg_user = user.getUserDetails();
+//                    String actual_pwd = reg_user.get(RememberUser.PASSWORD);
+//                    if (actual_pwd.equals(pwd)) {
+                        mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(Login_activity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(Login_activity.this, "Login Error, Please Login Again", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    user.createLoginSession(email, pwd);
+                                    finish();
+                                    Intent intToHome = new Intent(Login_activity.this, MainActivity.class);
+                                    startActivity(intToHome);
+                                }
                             }
-                            else{
-                                Intent intToHome = new Intent(Login_activity.this,MainActivity.class);
-                                startActivity(intToHome);
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("login",e.getLocalizedMessage());
                             }
-                        }
-                    });
-                }
+                        });
+//                    }
+//                    else{
+//                        Toast.makeText(Login_activity.this, "Incorrect Password, Try again!", Toast.LENGTH_SHORT).show();
+//                    }
+               }
                 else{
                     Toast.makeText(Login_activity.this,"Error Occurred!",Toast.LENGTH_SHORT).show();
 

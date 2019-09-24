@@ -48,6 +48,12 @@ public class RememberUser {
         //   return false;
     }
 
+    public void logOutUser(){
+        editor=preferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
     public HashMap<String, String> getUserDetails(){
 
         HashMap<String, String> user = new HashMap<>();
