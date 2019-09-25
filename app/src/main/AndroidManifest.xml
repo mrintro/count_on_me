@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Make_Requests_Activity"></activity>
+        <activity android:name=".cancel_request_Activity"></activity>
+        <activity android:name=".Make_Requests_Activity" />
         <activity android:name=".profile_activity" />
         <activity android:name=".Main_Menu" />
         <activity android:name=".notificationpage" />

@@ -1,11 +1,20 @@
 package com.example.excaliberani;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -13,16 +22,25 @@ public class Main_Menu extends AppCompatActivity {
 
     private Button news, profile, search, notification, make_req, logout;
     RememberUser userx;
+    private String user_mail;
+    ProgressDialog progressDialog;
+    DatabaseReference db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        userx=new RememberUser(this);
-        HashMap<String, String> reg_user = userx.getUserDetails();
-        String user_mail = reg_user.get(RememberUser.EMAIL);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__menu);
         setvalues();
+
+
+        userx=new RememberUser(this);
+        HashMap<String, String> reg_user = userx.getUserDetails();
+        user_mail = reg_user.get(RememberUser.EMAIL);
+
+        Email email = new Email(user_mail);
+        final String str = email.convert_mail();
+
+        db = FirebaseDatabase.getInstance().getReference();
 
         news.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +79,38 @@ public class Main_Menu extends AppCompatActivity {
         make_req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Main_Menu.this,Make_Requests_Activity.class);
-                startActivity(intent);
+
+                progressDialog = new ProgressDialog(Main_Menu.this);
+                progressDialog.setMessage("Registering...");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
+
+
+                db.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        Toast.makeText(Main_Menu.this,"here",Toast.LENGTH_SHORT).show();
+
+                        if(dataSnapshot.child("Requests").child(str).exists()){
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(Main_Menu.this,cancel_request_Activity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(Main_Menu.this,Make_Requests_Activity.class);
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//                        Toast.makeText(Main_Menu.this,"not good",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
             }
         });
 

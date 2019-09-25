@@ -59,7 +59,7 @@ public class Registration extends AppCompatActivity {
                 progressDialog.setCanceledOnTouchOutside(false);
                 progressDialog.show();
                 Email orig_mail= new Email(email);
-                final String key_email=orig_mail.convert_mail(email);
+                final String key_email=orig_mail.convert_mail();
                 mAuth = FirebaseAuth.getInstance();
 
                 userdetails.setemail(email);
@@ -78,6 +78,7 @@ public class Registration extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if (task.isSuccessful()){
+                                                    progressDialog.dismiss();
                                                     Intent intent1 = new Intent(Registration.this,Login_activity.class);
                                                   startActivity(intent1);
 //                                                    Toast.makeText(Registration.this,"succ",Toast.LENGTH_SHORT).show();
@@ -87,7 +88,7 @@ public class Registration extends AppCompatActivity {
                                                 }
                                             }
                                         });
-                                        progressDialog.dismiss();
+
                                         Toast.makeText(Registration.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                                     }
                                     else{
