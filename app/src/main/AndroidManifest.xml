@@ -19,10 +19,6 @@
         <activity android:name=".Main_Menu" />
         <activity android:name=".notificationpage" />
         <activity android:name=".searchbar" />
-        <activity
-            android:name=".mainpage"
-            android:label="@string/title_activity_mainpage"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ew_feed_page" />
         <activity android:name=".Registration" />
         <activity android:name=".sendFriendRequest" />
