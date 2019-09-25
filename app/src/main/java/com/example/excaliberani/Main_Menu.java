@@ -1,15 +1,18 @@
 package com.example.excaliberani;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +44,19 @@ public class Main_Menu extends AppCompatActivity {
         final String str = email.convert_mail();
 
         db = FirebaseDatabase.getInstance().getReference();
+        db.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child("Requests").child(str).exists()){
+                    make_req.setText("Cancel Request");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         news.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +110,24 @@ public class Main_Menu extends AppCompatActivity {
 
                         if(dataSnapshot.child("Requests").child(str).exists()){
                             progressDialog.dismiss();
-                            Intent intent = new Intent(Main_Menu.this,cancel_request_Activity.class);
-                            startActivity(intent);
+                            AlertDialog.Builder builder =new AlertDialog.Builder(Main_Menu.this);
+                            builder.setMessage("You Already Have A REQUEST. DO YOU WANT TO REMOVE IT")
+                                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            db.child("Requests").child(str).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    //Add request to "pending requests" table..
+
+                                                    Toast.makeText(Main_Menu.this,"Done!",Toast.LENGTH_LONG).show();
+
+                                                }
+                                            });
+                                        }
+                                    }).setNegativeButton("No",null);
+                            AlertDialog alert=builder.create();
+                            alert.show();
                         }
                         else{
                             progressDialog.dismiss();
