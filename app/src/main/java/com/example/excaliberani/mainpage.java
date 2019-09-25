@@ -97,9 +97,6 @@ public class mainpage extends AppCompatActivity implements OnNavigationItemSelec
             case R.id.nav_feed:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new News_feed_page()).commit();
                 break;
-            case R.id.nav_make_request:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new make_request_page()).commit();
-                break;
             case R.id.nav_aboutus:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new about_us_page()).commit();
                 break;

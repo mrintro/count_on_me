@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".notificationpage">
-
+    tools:context=".Make_Requests_Activity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notification in this page"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="356dp" />
+        android:text="MAKE REQUESTS HERE" />
+
+
 </RelativeLayout>
