@@ -58,7 +58,7 @@ public class Login_activity extends AppCompatActivity {
                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                 // Toast.makeText(LoginActivity.this,mFirebaseUser.toString(),Toast.LENGTH_LONG).show();
                 if( mFirebaseUser != null ){
-                    Toast.makeText(Login_activity.this,"You are logged in",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Login_activity.this,"You are logged in",Toast.LENGTH_SHORT).show();
                     //Intent i = new Intent(LoginActivity.this, HomeActivity.class);
                     //startActivity(i);
                 }
@@ -96,7 +96,7 @@ public class Login_activity extends AppCompatActivity {
                                 } else {
                                     user.createLoginSession(email, pwd);
                                     finish();
-                                    Intent intToHome = new Intent(Login_activity.this, ew_feed_page.class);
+                                    Intent intToHome = new Intent(Login_activity.this, Main_Menu.class);
                                     startActivity(intToHome);
                                 }
                             }

@@ -8,6 +8,13 @@
     tools:showIn="@layout/app_bar_mainpage">
 
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lsview"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
 
     <fragment
         android:id="@+id/nav_host_fragment"

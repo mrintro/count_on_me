@@ -54,7 +54,6 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validateDataFromEditText();
-                Toast.makeText(Registration.this, "haha", Toast.LENGTH_SHORT).show();
                 progressDialog.setMessage("Registering...");
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDialog.setCanceledOnTouchOutside(false);
@@ -79,10 +78,12 @@ public class Registration extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if (task.isSuccessful()){
-                                                    Toast.makeText(Registration.this,"succ",Toast.LENGTH_SHORT).show();
+                                                    Intent intent1 = new Intent(Registration.this,Login_activity.class);
+                                                  startActivity(intent1);
+//                                                    Toast.makeText(Registration.this,"succ",Toast.LENGTH_SHORT).show();
                                                 }
                                                 else{
-                                                    Toast.makeText(Registration.this,"pfft",Toast.LENGTH_SHORT).show();
+//                                                    Toast.makeText(Registration.this,"pfft",Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
@@ -122,6 +123,9 @@ public class Registration extends AppCompatActivity {
                 Toast.makeText(this, "Enter valid email address", Toast.LENGTH_SHORT).show();
             else if (phonenumber.length() != 10) {
                 Toast.makeText(this, "Enter valid phone number", Toast.LENGTH_SHORT).show();
+            }
+            else if(password.length()<6){
+                Toast.makeText(this, "Password should contain at least 6 characters", Toast.LENGTH_SHORT).show();
             }
             else {
                 return;
