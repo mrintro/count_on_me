@@ -37,11 +37,11 @@ public class FeedData {
         this.pickup = pickup;
     }
 
-    public String getRequest() {
+    public String getReq() {
         return req;
     }
 
-    public void setRequest(String request) {
-        this.req = request;
+    public void setReq(String req) {
+        this.req = req;
     }
 }

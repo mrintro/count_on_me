@@ -9,7 +9,56 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MAKE REQUESTS HERE" />
+        android:text="PUT YOUR REQUEST HERE:"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="100dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="STATE YOUR REQUEST:"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="108dp"
+        />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/req_state"
+        android:layout_marginTop="70dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PICK UP LOCATION"
+        android:layout_marginTop="125dp"
+        android:layout_marginLeft="108dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pick_up"
+        android:layout_marginTop="165dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DROP DOWN LOCATION"
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="108dp"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/drop_down"
+        android:layout_marginTop="250dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_makereq"
+        android:text="MAKE REQUEST"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="150dp"/>
 </RelativeLayout>
