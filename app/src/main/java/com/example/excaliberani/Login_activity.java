@@ -98,6 +98,7 @@ public class Login_activity extends AppCompatActivity {
                                     user.createLoginSession(email, pwd);
                                     finish();
                                     Intent intToHome = new Intent(Login_activity.this, Main_Menu.class);
+                                    intToHome.addFlags(intToHome.FLAG_ACTIVITY_NEW_TASK|intToHome.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intToHome);
                                 }
                             }
