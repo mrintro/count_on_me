@@ -46,7 +46,7 @@ public class RememberUser {
             //        return true;
         }
         else{
-            Intent intent=new Intent(context,ew_feed_page.class);
+            Intent intent=new Intent(context,Main_Menu.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
