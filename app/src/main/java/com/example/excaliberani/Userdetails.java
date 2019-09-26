@@ -8,7 +8,14 @@ public class Userdetails {
     private String email;
     private String phone;
     private String password;
+    private String image;
 
+    public String getImage(){
+        return image;
+    }
+    public void setImage(String image){
+        this.image=image;
+    }
     public Userdetails(){}
 
     public  Userdetails(String username){

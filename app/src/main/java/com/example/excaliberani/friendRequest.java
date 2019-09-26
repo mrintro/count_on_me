@@ -50,8 +50,14 @@ public class friendRequest extends AppCompatActivity {
 
                             Toast.makeText(friendRequest.this,"CheckPoint3",Toast.LENGTH_LONG).show();
                             if(req_type.equals("received")){
-                                mFriendData.child("friendList").child(senderName).child(receiverName).setValue("friends");
-                                mFriendData.child("friendList").child(receiverName).child(senderName).setValue("friends");
+                                String nameSender=mFriendData.child("users").child(senderName).child("name").toString().trim();
+                                String mailSender=mFriendData.child("users").child(senderName).child("email").toString().trim();
+                                String nameReceiver=mFriendData.child("users").child(senderName).child("name").toString().trim();
+                                String mailReceiver=mFriendData.child("users").child(senderName).child("email").toString().trim();
+                                mFriendData.child("friendList").child(senderName).child(receiverName).child("name").setValue(nameSender);
+                                mFriendData.child("friendList").child(senderName).child(receiverName).child("email").setValue(mailSender);
+                                mFriendData.child("friendList").child(receiverName).child(senderName).child("name").setValue(nameReceiver);
+                                mFriendData.child("friendList").child(receiverName).child(senderName).child("email").setValue(mailReceiver);
                                 decline.setEnabled(false);
                                 mData.child("friend_req").child(senderName).child(receiverName).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override

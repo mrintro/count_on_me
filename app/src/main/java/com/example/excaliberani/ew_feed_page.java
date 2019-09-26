@@ -11,6 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,14 +95,25 @@ public class ew_feed_page extends AppCompatActivity {
         feed2 = dataSnapshot.child("Requests").child("aniketpanwar_dot_1998@gmail_dot_com").getValue(FeedData.class);
         String str = feed2.getEmail();
         t1.setText(str);*/
-        DataSnapshot ds1 = dataSnapshot.child("Requests");
+        FirebaseUser firebaseUser;
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        String email=firebaseUser.getEmail();
+        Toast.makeText(ew_feed_page.this,email,Toast.LENGTH_LONG).show();
+        DataSnapshot ds1 = dataSnapshot.child("Requests"),dsFriends= dataSnapshot.child("friend_list").child(convert_mail(email));
         for(DataSnapshot ds:ds1.getChildren()){
             FeedData feed2;
             feed2 = ds.getValue(FeedData.class);
             if(feed2.getEmail().equals(user_mail)){
                 continue;
             }
-            feed.add(feed2);
+            Toast.makeText(ew_feed_page.this,feed2.getEmail(),Toast.LENGTH_LONG).show();
+            String feed3=feed2.getEmail();
+            feed3=convert_mail(feed3);
+            String a=dsFriends.getKey().toString().trim();
+            Toast.makeText(ew_feed_page.this,dsFriends.child(feed3).child("email").getValue().toString().trim()+" "+extract_mail(feed3),Toast.LENGTH_LONG).show();
+            if((dsFriends.child(convert_mail(feed3)).child("email").getValue()).equals(extract_mail(feed3))) {
+                feed.add(feed2);
+            }
         }
         int p = feed.size();
         String y = String.valueOf(p);
