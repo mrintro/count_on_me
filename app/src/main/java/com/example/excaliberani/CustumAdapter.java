@@ -76,7 +76,7 @@ public class CustumAdapter extends BaseAdapter {
 //        TextView t6 = (TextView)x.findViewById(R.id.excal_t1);
         t1.setText(name.get(position));
         t2.setText(queries.get(position).getEmail());
-        t3.setText(queries.get(position).getRequest());
+        t3.setText(queries.get(position).getReq());
         t4.setText(queries.get(position).getPickup());
         t5.setText(queries.get(position).getDropdown());
         Bundle b = new Bundle();

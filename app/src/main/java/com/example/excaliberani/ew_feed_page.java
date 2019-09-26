@@ -3,6 +3,7 @@ package com.example.excaliberani;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,14 +22,14 @@ import java.util.HashMap;
 
 public class ew_feed_page extends AppCompatActivity {
 
-
-    private TextView t;
     private Button log_out;
 
+    private String user_mail;
     public ArrayList<String> req;
     DatabaseReference db;
     ListView lv;
     RememberUser userx;
+    private ProgressDialog progressDialog;
 
     ArrayList<FeedData> feed = new ArrayList<FeedData>();
     ArrayList<String> names = new ArrayList<String>();
@@ -38,28 +39,34 @@ public class ew_feed_page extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ew_feed_page);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("LOADING");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
 
-        t = (TextView)findViewById(R.id.xy);
+
         log_out =(Button)findViewById(R.id.log_out);
         userx=new RememberUser(this);
         HashMap<String, String> reg_user = userx.getUserDetails();
-        String user_mail = reg_user.get(RememberUser.EMAIL);
-
+        user_mail = reg_user.get(RememberUser.EMAIL);
         lv = (ListView) findViewById(R.id.excal_list_feed);
-        t.setText(user_mail);
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 userx.logOutUser();
                 Toast.makeText(ew_feed_page.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
             }
         });
+
         db= FirebaseDatabase.getInstance().getReference();
         db.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 fetch(dataSnapshot);
                 runadap();
+                progressDialog.dismiss();
             }
 
 
@@ -90,20 +97,19 @@ public class ew_feed_page extends AppCompatActivity {
         for(DataSnapshot ds:ds1.getChildren()){
             FeedData feed2;
             feed2 = ds.getValue(FeedData.class);
+            if(feed2.getEmail().equals(user_mail)){
+                continue;
+            }
             feed.add(feed2);
         }
         int p = feed.size();
         String y = String.valueOf(p);
-        Toast.makeText(ew_feed_page.this,y,Toast.LENGTH_SHORT).show();
         for(int i=0;i<feed.size();i++){
             String str = feed.get(i).getEmail();
             str = convert_mail(str);
             String st =dataSnapshot.child("users").child(str).child("name").getValue(String.class);
             names.add(st);
-//            Toast.makeText(MainActivity.this, st,Toast.LENGTH_SHORT).show();
         }
-//        for(FeedData obj:feed)
-//            t1.setText(obj.getRequest());
     }
 
     public String convert_mail(String orig_mail){
@@ -116,8 +122,6 @@ public class ew_feed_page extends AppCompatActivity {
                 orig_mail=orig_mail.substring(0,i)+"_dot_"+orig_mail.substring(i+1,n);
                 n+=4;
                 i+=5;
-
-//                Toast.makeText(getApplicationContext(),"here",Toast.LENGTH_LONG).show();
             }
 
         }

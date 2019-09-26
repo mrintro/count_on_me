@@ -17,8 +17,8 @@ public class Email {
         this.email = email;
     }
 
-    public String convert_mail(String email){
-
+    public String convert_mail(){
+        String email = this.email;
         int n=email.length();
         for(int i=0;i<n;i++){
 
