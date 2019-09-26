@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainpage"
-    android:background="@drawable/card"
+    tools:context=".Make_Requests_Activity"
+    android:background="@drawable/backgroundmain"
     >
 
     <androidx.viewpager.widget.ViewPager
@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/notification"
-        android:layout_width="73dp"
-        android:layout_height="67dp"
+        android:layout_width="67dp"
+        android:layout_height="56dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,28 +34,27 @@
 
     <ImageView
         android:id="@+id/search"
-        android:layout_width="73dp"
-        android:layout_height="67dp"
+        android:layout_width="72dp"
+        android:layout_height="57dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintHorizontal_bias="0.755"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/slideViewPager"
-        app:layout_constraintVertical_bias="0.987"
+        app:layout_constraintVertical_bias="0.988"
         app:srcCompat="@drawable/search" />
 
     <ImageView
         android:id="@+id/log_out"
-        android:layout_width="73dp"
-        android:layout_height="67dp"
+        android:layout_width="62dp"
+        android:layout_height="61dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/slideViewPager"
-        app:layout_constraintVertical_bias="0.987"
-        app:srcCompat="@drawable/search" />
-
+        app:layout_constraintVertical_bias="0.994"
+        app:srcCompat="@drawable/logout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
