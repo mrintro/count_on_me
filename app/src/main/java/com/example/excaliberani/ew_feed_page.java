@@ -44,6 +44,7 @@ public class ew_feed_page extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
+        getSupportActionBar().hide();
 
 
         log_out =(Button)findViewById(R.id.log_out);
