@@ -7,7 +7,7 @@
     tools:context=".searchbar">
 
 
-    <SearchView
+    <!--<SearchView
         android:id ="@+id/sv_searchbar"
         android:layout_width="395dp"
         android:layout_height="wrap_content"
@@ -18,5 +18,11 @@
         android:layout_marginTop="26dp"
         android:iconifiedByDefault="false"
 
-        android:background="@drawable/searchbar" />
+        android:background="@drawable/searchbar" />-->
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lisss"/>
+
 </RelativeLayout>

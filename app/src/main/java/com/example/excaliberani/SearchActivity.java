@@ -84,6 +84,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 //            }
 //        });
         setupSearchView();
+
 //        editsearch.setSubmitButtonEnabled(true);
 //        editsearch.setOnQueryTextListener(listener);
 
@@ -103,7 +104,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     @Override
     public boolean onQueryTextChange(String newText) {
         if (TextUtils.isEmpty(newText)) {
-                    //list.clearTextFilter();
+//                    list.clearTextFilter();
                     String s="";
                     adapter.getFilter().filter(s);
                 } else {

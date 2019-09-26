@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -55,7 +56,7 @@ public class UserListViewAdapter extends BaseAdapter implements Filterable {
 
             protected FilterResults performFiltering(CharSequence constraint) {
                 constraint = constraint.toString().toLowerCase();
-                final FilterResults filterResults = new FilterResults();
+                FilterResults filterResults = new FilterResults();
 
 //                if(constraint==null){
 //                    original=arrayList;
@@ -76,6 +77,7 @@ public class UserListViewAdapter extends BaseAdapter implements Filterable {
                     filterResults.values=orig;
                     filterResults.count=orig.size();
                 }
+         Toast.makeText(context,orig.size(),Toast.LENGTH_SHORT).show();
                 return filterResults;
             }
 
