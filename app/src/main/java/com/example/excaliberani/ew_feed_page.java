@@ -54,6 +54,7 @@ public class ew_feed_page extends AppCompatActivity {
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 userx.logOutUser();
             }
         });
