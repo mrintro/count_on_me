@@ -33,7 +33,7 @@ public class searchbar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_searchbar);
 
         lv = (ListView)findViewById(R.id.lisss);
@@ -45,7 +45,7 @@ public class searchbar extends AppCompatActivity {
                 DataSnapshot ds=dataSnapshot.child("users");
                 for(DataSnapshot ds1 : ds.getChildren()){
                     String nameaaja=ds1.child("name").getValue(String.class);
-                    Toast.makeText(searchbar.this,nameaaja,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(searchbar.this,nameaaja,Toast.LENGTH_SHORT).show();
                     mylist.add(nameaaja);
                 }
             }
