@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mainpage"></activity>
         <activity android:name=".cancel_request_Activity" />
         <activity android:name=".Make_Requests_Activity" />
         <activity android:name=".profile_activity" />

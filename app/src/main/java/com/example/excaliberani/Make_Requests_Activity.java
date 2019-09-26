@@ -34,6 +34,7 @@ public class Make_Requests_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_make__requests_);
 
         userx=new RememberUser(this);
