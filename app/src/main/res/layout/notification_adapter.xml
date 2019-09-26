@@ -6,8 +6,31 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/naam"
+        android:id="@+id/idnaam"
+        android:text="xyz"
         android:textSize="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/idemail"
+        android:text="abcd"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Accept_btn"
+        android:layout_marginTop="15dp"
+        android:text="ACCEPT REQUEST"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Reject_btn"
+        android:layout_marginTop="15dp"
+        android:text="REJECT REQUEST"
+        />
+
 
 
 </LinearLayout>
