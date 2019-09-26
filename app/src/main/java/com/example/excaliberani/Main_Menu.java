@@ -41,7 +41,7 @@ public class Main_Menu extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Main_Menu.this,searchbar.class);
+                Intent intent = new Intent(Main_Menu.this,SearchActivity.class);
                 startActivity(intent);
             }
         });

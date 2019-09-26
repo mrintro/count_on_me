@@ -46,10 +46,10 @@ public class RememberUser {
             //        return true;
         }
         else{
-
-            Intent intent=new Intent(context,Login_activity.class);
+            Intent intent=new Intent(context,ew_feed_page.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
-//            return;
         }
         //   return false;
     }

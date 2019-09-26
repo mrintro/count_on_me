@@ -51,6 +51,7 @@ public class ew_feed_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 userx.logOutUser();
+                Toast.makeText(ew_feed_page.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
             }
         });
         db= FirebaseDatabase.getInstance().getReference();
@@ -73,6 +74,7 @@ public class ew_feed_page extends AppCompatActivity {
 
 
     }
+
 
     private void runadap() {
         CustumAdapter cd = new CustumAdapter(ew_feed_page.this,feed,names);

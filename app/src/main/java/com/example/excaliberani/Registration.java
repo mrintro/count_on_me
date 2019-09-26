@@ -48,11 +48,13 @@ public class Registration extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         databaseReference= FirebaseDatabase.getInstance().getReference();
 
+
         final Userdetails userdetails= new Userdetails();
 
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 validateDataFromEditText();
                 progressDialog.setMessage("Registering...");
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
