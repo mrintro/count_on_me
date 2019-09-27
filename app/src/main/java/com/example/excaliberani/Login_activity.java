@@ -86,20 +86,23 @@ public class Login_activity extends AppCompatActivity {
                     Toast.makeText(Login_activity.this,"Fields Are Empty!",Toast.LENGTH_SHORT).show();
                 }
                 else  if(!(email.isEmpty() && pwd.isEmpty())) {
-//                    HashMap<String, String> reg_user = user.getUserDetails();
-//                    String actual_pwd = reg_user.get(RememberUser.PASSWORD);
-//                    if (actual_pwd.equals(pwd)) {
                         mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(Login_activity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(Login_activity.this, "Login Error, Please Login Again", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login_activity.this, "Wrong Credetials", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    user.createLoginSession(email, pwd);
-                                    finish();
-                                    Intent intToHome = new Intent(Login_activity.this, Main_Menu.class);
-                                    intToHome.addFlags(intToHome.FLAG_ACTIVITY_NEW_TASK|intToHome.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intToHome);
+                                    if(mFirebaseAuth.getCurrentUser().isEmailVerified()){
+                                        user.createLoginSession(email, pwd);
+                                        finish();
+                                        Intent intToHome = new Intent(Login_activity.this, Main_Menu.class);
+                                        intToHome.addFlags(intToHome.FLAG_ACTIVITY_NEW_TASK|intToHome.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intToHome);
+                                    }
+                                    else{
+                                        Toast.makeText(Login_activity.this,"Plese Verify Your Email First",Toast.LENGTH_SHORT);
+                                    }
+
                                 }
                             }
                         }).addOnFailureListener(new OnFailureListener() {
