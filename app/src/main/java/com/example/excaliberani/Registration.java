@@ -73,6 +73,10 @@ public class Registration extends AppCompatActivity {
 
         final Userdetails userdetails= new Userdetails();
 
+
+
+
+
         proceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +95,9 @@ public class Registration extends AppCompatActivity {
                 userdetails.setphonenumber(phonenumber);
                 userdetails.setpassword(password);
 
+
+
+
                 path=storeImg.child("images").child(email+".jpg");
 //                path.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 //                    @Override
@@ -103,7 +110,8 @@ public class Registration extends AppCompatActivity {
 //                        aiseHi(key_email,userdetails);
 //                    }
 //                });
-                path.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                path.putFile(resultUri).addOnCompleteListener(
+                        new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
 //                        path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

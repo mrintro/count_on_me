@@ -100,7 +100,7 @@ public class ew_feed_page extends AppCompatActivity {
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         String email=firebaseUser.getEmail();
         Toast.makeText(ew_feed_page.this,email,Toast.LENGTH_LONG).show();
-        DataSnapshot ds1 = dataSnapshot.child("Requests"),dsFriends= dataSnapshot.child("friend_list").child(convert_mail(email));
+        DataSnapshot ds1 = dataSnapshot.child("Requests"),dsFriends= dataSnapshot.child("friend_list").child(convert_mail(user_mail));
         for(DataSnapshot ds:ds1.getChildren()){
             FeedData feed2;
             feed2 = ds.getValue(FeedData.class);
