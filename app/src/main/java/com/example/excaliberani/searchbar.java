@@ -24,7 +24,7 @@ import java.util.List;
 
 public class searchbar extends AppCompatActivity {
 
-    ArrayList<String> mylist=new ArrayList<>();
+    ArrayList<Emailndname>mylist = new ArrayList<>();
     private SearchView searchView;
     ListView lv;
     DatabaseReference db;
@@ -33,7 +33,7 @@ public class searchbar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_searchbar);
 
         lv = (ListView)findViewById(R.id.lisss);
@@ -44,7 +44,7 @@ public class searchbar extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 DataSnapshot ds=dataSnapshot.child("users");
                 for(DataSnapshot ds1 : ds.getChildren()){
-                    String nameaaja=ds1.child("name").getValue(String.class);
+                    Emailndname nameaaja=ds1.getValue(Emailndname.class);
 //                    Toast.makeText(searchbar.this,nameaaja,Toast.LENGTH_SHORT).show();
                     mylist.add(nameaaja);
                 }
@@ -57,16 +57,16 @@ public class searchbar extends AppCompatActivity {
         });
     }
     public void getdata(String query){
-        ArrayList<String> output = new ArrayList<>();
-        ArrayList<String> filtered = new ArrayList<>();
+        ArrayList<Emailndname> output = new ArrayList<>();
+        ArrayList<Emailndname> filtered = new ArrayList<>();
 
-        for(String x:mylist){
+        for(Emailndname x:mylist){
             output.add(x);
         }
 
         if(searchView!=null){
-            for(String x: output){
-                if(x.toLowerCase().startsWith(query.toLowerCase()))
+            for(Emailndname x: output){
+                if(x.getName().toLowerCase().startsWith(query.toLowerCase()))
                     filtered.add(x);
             }
         }
