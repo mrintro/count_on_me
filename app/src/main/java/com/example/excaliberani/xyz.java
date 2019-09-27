@@ -2,6 +2,7 @@ package com.example.excaliberani;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +15,14 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class xyz extends ArrayAdapter<String> {
+public class xyz extends ArrayAdapter<Emailndname> {
 
     Context context;
     int layoutResourceId;
-    List<String> data=null;
+    ArrayList<Emailndname> data=new ArrayList<>();
 
 
-    public xyz(Context context, int resource, List<String> objects) {
+    public xyz(Context context, int resource, ArrayList<Emailndname> objects) {
         super(context, resource, objects);
 
         this.layoutResourceId = resource;
@@ -31,7 +32,7 @@ public class xyz extends ArrayAdapter<String> {
 
     static class DataHolder
     {
-        TextView naam;
+        TextView naam,maal;
 
     }
 
@@ -51,7 +52,7 @@ public class xyz extends ArrayAdapter<String> {
             holder = new DataHolder();
 //            holder.ivFlag = (ImageViewew)convertView.findViewById(R.id.ivCountry);
             holder.naam = (TextView)convertView.findViewById(R.id.tvCountry);
-
+            holder.maal = (TextView)convertView.findViewById(R.id.tvemail);
             convertView.setTag(holder);
         }
         else
@@ -59,8 +60,18 @@ public class xyz extends ArrayAdapter<String> {
             holder = (DataHolder)convertView.getTag();
         }
 
-        String dataItem = data.get(position);
-        holder.naam.setText(dataItem);
+        String datanaam = data.get(position).getName();
+        final String datamaal = data.get(position).getEmail();
+        holder.naam.setText(datanaam);
+        holder.maal.setText(datamaal);
+        holder.naam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,UserProfile.class);
+                intent.putExtra("email",datamaal);
+                context.startActivity(intent);
+            }
+        });
 //        holder.ivFlag.setImageResource(dataItem.resIdThumbnail);
 
         return  convertView;
