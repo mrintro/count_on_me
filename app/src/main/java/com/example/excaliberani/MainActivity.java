@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         RememberUser rememberUser=new RememberUser(this);
         rememberUser.checkLogin();
-        Intent intent=new Intent(MainActivity.this,Login_activity.class);
-        intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK|intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
         finish();
     }
 }

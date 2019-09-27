@@ -42,14 +42,19 @@ public class RememberUser {
             Intent intent=new Intent(context,Login_activity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK|intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
+//            context.finish();
             //        return true;
         }
         else{
             Intent intent=new Intent(context,Main_Menu.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(intent.FLAG_ACTIVITY_NEW_TASK|intent.FLAG_ACTIVITY_CLEAR_TOP);
             context.startActivity(intent);
+//           context.finish();
+//
 //            return;
         }
         //   return false;

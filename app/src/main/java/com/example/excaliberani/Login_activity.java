@@ -100,7 +100,7 @@ public class Login_activity extends AppCompatActivity {
                                         startActivity(intToHome);
                                     }
                                     else{
-                                        Toast.makeText(Login_activity.this,"Plese Verify Your Email First",Toast.LENGTH_SHORT);
+                                        Toast.makeText(Login_activity.this,"Plese Verify Your Email First",Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
