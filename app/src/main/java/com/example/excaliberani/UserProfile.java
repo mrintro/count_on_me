@@ -3,6 +3,7 @@ package com.example.excaliberani;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,11 +36,9 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         mCurrentUser= FirebaseAuth.getInstance().getCurrentUser();
         sender=mCurrentUser.getEmail();
-        if(sender.equals("shivanshi308@gmail.com"))
-            email="shashank2409@gmail.com";
-        else{
-            email="shivanshi308@gmail.com";
-        }
+        Intent intent=getIntent();
+        email=intent.getStringExtra("email");
+
         mCurrentState="not_friends";
         button1=findViewById(R.id.excal_user_request);
         button2=findViewById(R.id.excal_user_accept);
