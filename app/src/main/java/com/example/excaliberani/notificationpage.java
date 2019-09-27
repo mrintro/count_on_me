@@ -44,13 +44,17 @@ public class notificationpage extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                if(dataSnapshot.child("friend_req").child(str).exists()){
                    DataSnapshot ds = dataSnapshot.child("friend_req").child(str);
-                   Emailndname y = ds.child("shashank2409@gmail_dot_com").getValue(Emailndname.class);
-                   Toast.makeText(notificationpage.this,y.getEmail(),Toast.LENGTH_SHORT).show();
+//                   Emailndname y = ds.child("shashank2409@gmail_dot_com").getValue(Emailndname.class);
+//                   Toast.makeText(notificationpage.this,y.getEmail(),Toast.LENGTH_SHORT).show();
                    for(DataSnapshot x : ds.getChildren()){
-                        Emailndname xy;
-
-                        xy=x.getValue(Emailndname.class);
-                        details.add(xy);
+//                        Emailndname xy;
+                        String str1 = x.child("req_type").getValue().toString().trim();
+                       Toast.makeText(notificationpage.this,str1,Toast.LENGTH_SHORT).show();
+                        if(str1.equals("received")) {
+                            String str2 = x.child("email").getValue().toString().trim();
+                            Emailndname xy = new Emailndname(str2,"ac");
+                            details.add(xy);
+                        }
                    }
 
                }

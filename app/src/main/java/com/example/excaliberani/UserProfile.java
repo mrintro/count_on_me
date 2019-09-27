@@ -3,6 +3,7 @@ package com.example.excaliberani;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -23,7 +24,7 @@ public class UserProfile extends AppCompatActivity {
     Button button1,button2;
     TextView username;
     DatabaseReference databaseReference;
-    String email,sender;
+    String email,sender,nameS,nameR;
     DatabaseReference mData,mFriendData,mFriendList,userDatabase;
     String mCurrentState,senderUsername,receiverUsername,send,receive;
     FirebaseUser mCurrentUser;
@@ -35,11 +36,9 @@ public class UserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
         mCurrentUser= FirebaseAuth.getInstance().getCurrentUser();
         sender=mCurrentUser.getEmail();
-        if(sender.equals("shivanshi308@gmail.com"))
-            email="shashank2409@gmail.com";
-        else{
-            email="shivanshi308@gmail.com";
-        }
+        Intent intent=getIntent();
+        email=intent.getStringExtra("email");
+
         mCurrentState="not_friends";
         button1=findViewById(R.id.excal_user_request);
         button2=findViewById(R.id.excal_user_accept);
@@ -106,6 +105,20 @@ public class UserProfile extends AppCompatActivity {
                 Toast.makeText(UserProfile.this,"An error occured",Toast.LENGTH_LONG).show();
             }
         });
+
+        userDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nameS=dataSnapshot.child("users").child(senderName).child("name").getValue().toString().trim();
+                nameR=dataSnapshot.child("users").child(receiverName).child("name").getValue().toString().trim();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,10 +155,11 @@ public class UserProfile extends AppCompatActivity {
                         }
                     });
 
+                    Toast.makeText(UserProfile.this,nameR+" "+nameR,Toast.LENGTH_LONG).show();
                     mFriendData.child("friend_req").child(senderName).child(receiverName).child("req_type").setValue("sent");
                     mFriendData.child("friend_req").child(senderName).child(receiverName).child("email").setValue(email);
-                    mFriendData.child("friend_req").child(senderName).child(receiverName).child("name").setValue(receiverUsername);
-                    mFriendData.child("friend_req").child(receiverName).child(senderName).child("name").setValue(senderUsername);
+                    mFriendData.child("friend_req").child(senderName).child(receiverName).child("name").setValue(nameR);
+                    mFriendData.child("friend_req").child(receiverName).child(senderName).child("name").setValue(nameS);
                     mFriendData.child("friend_req").child(receiverName).child(senderName).child("req_type").setValue("received");
                     mFriendData.child("friend_req").child(receiverName).child(senderName).child("email").setValue(sender);
 
@@ -155,9 +169,12 @@ public class UserProfile extends AppCompatActivity {
 
                 }
                 else if(mCurrentState.equals("req_received")){
-//                    mFriendData.child("friend_list").child(senderName).child(receiverName).child("name").setValue(senderName);
+
+//                    Toast.makeText(UserProfile.this,nameR+" "+nameR,Toast.LENGTH_LONG).show();
+
+                    mFriendData.child("friend_list").child(senderName).child(receiverName).child("name").setValue(nameR);
                     mFriendData.child("friend_list").child(senderName).child(receiverName).child("email").setValue(email);
-//                    mFriendData.child("friend_list").child(receiverName).child(senderName).child("name").setValue(receiverName);
+                    mFriendData.child("friend_list").child(receiverName).child(senderName).child("name").setValue(nameS);
                     mFriendData.child("friend_list").child(receiverName).child(senderName).child("email").setValue(sender);
                     mFriendData.child("friend_req").child(senderName).child(receiverName).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

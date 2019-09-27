@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,27 +48,21 @@ public class accept_req_page extends AppCompatActivity {
 
         emails.setText(email);
 
-        requestDatabase= FirebaseDatabase.getInstance().getReference("Requests");
+        requestDatabase= FirebaseDatabase.getInstance().getReference("Requests").child(convert_mail(email));
         fetch= FirebaseDatabase.getInstance().getReference();
         showInfo=findViewById(R.id.excal_show_info);
-
-        showInfo.setOnClickListener(new View.OnClickListener() {
+        requestDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                final String semail=convert_mail(email);
-                requestDatabase.child(semail).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        submitTo.setText(dataSnapshot.child("email").getValue().toString().trim());
-                        pickUpLocation.setText(dataSnapshot.child("pickup").getValue().toString().trim());
-                        request.setText(dataSnapshot.child("req").getValue().toString().trim());
-                        dropLocation.setText(dataSnapshot.child("dropdown").getValue().toString().trim());
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        Toast.makeText(accept_req_page.this,"No data found!!",Toast.LENGTH_LONG).show();
-                    }
-                });
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                submitTo.setText(dataSnapshot.child("email").getValue().toString().trim());
+                pickUpLocation.setText(dataSnapshot.child("pickup").getValue().toString().trim());
+                request.setText(dataSnapshot.child("req").getValue().toString().trim());
+                dropLocation.setText(dataSnapshot.child("dropdown").getValue().toString().trim());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 

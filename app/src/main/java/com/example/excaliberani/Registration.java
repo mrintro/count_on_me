@@ -114,8 +114,7 @@ public class Registration extends AppCompatActivity {
 //                        });
 
                         if (task.isSuccessful()){
-                            Toast.makeText(Registration.this, "Working", Toast.LENGTH_LONG).show();
-//                            downUrl=task.getResult().getUploadSessionUri().toString();
+//                              downUrl=task.getResult().getUploadSessionUri().toString();
 //                            downUrl = Objects.requireNonNull(task.getResult()).getDownloadUrl().toString();
 //                            downUrl=task.getResult().getUploadSessionUri().toString();
                             userdetails.setImage(downUrl);
@@ -147,17 +146,26 @@ public class Registration extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()){
-                                            Intent intent1 = new Intent(Registration.this,Login_activity.class);
-                                            startActivity(intent1);
-//                                                    Toast.makeText(Registration.this,"succ",Toast.LENGTH_SHORT).show();
+                                            mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if(task.isSuccessful()){
+                                                        Toast.makeText(Registration.this,"Registered Successfully\n Please Verify Your Mail Id",Toast.LENGTH_LONG).show();
+                                                        Intent intent1 = new Intent(Registration.this,Login_activity.class);
+                                                        startActivity(intent1);
+                                                    }
+                                                    else{
+                                                        Toast.makeText(Registration.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                            });
                                         }
                                         else{
-//                                                    Toast.makeText(Registration.this,"pfft",Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(Registration.this,"Check Your Internet Connection",Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
                                 progressDialog.dismiss();
-                                Toast.makeText(Registration.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
                             }
                             else{
                                 progressDialog.dismiss();
