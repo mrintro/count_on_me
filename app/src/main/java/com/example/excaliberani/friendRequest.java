@@ -22,7 +22,7 @@ public class friendRequest extends AppCompatActivity {
     EditText receiver,sender;
     Button accept,decline;
     DatabaseReference mData,mFriendData;
-    String mCurrentState;
+//    String mCurrentState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
