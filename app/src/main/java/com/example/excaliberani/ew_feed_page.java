@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class ew_feed_page extends AppCompatActivity {
 
-    private Button log_out;
+//    private Button log_out;
 
     private String user_mail;
     public ArrayList<String> req;
@@ -48,19 +48,10 @@ public class ew_feed_page extends AppCompatActivity {
         progressDialog.show();
 
 
-        log_out =(Button)findViewById(R.id.log_out);
         userx=new RememberUser(this);
         HashMap<String, String> reg_user = userx.getUserDetails();
         user_mail = reg_user.get(RememberUser.EMAIL);
         lv = (ListView) findViewById(R.id.excal_list_feed);
-        log_out.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                userx.logOutUser();
-                Toast.makeText(ew_feed_page.this, "Logged out successfully", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         db= FirebaseDatabase.getInstance().getReference();
         db.addValueEventListener(new ValueEventListener() {
@@ -110,9 +101,11 @@ public class ew_feed_page extends AppCompatActivity {
             String feed3=feed2.getEmail();
             feed3=convert_mail(feed3);
             String a=dsFriends.getKey().toString().trim();
-            Toast.makeText(ew_feed_page.this,dsFriends.child(feed3).child("email").getValue().toString().trim()+" "+extract_mail(feed3),Toast.LENGTH_LONG).show();
-            if((dsFriends.child(convert_mail(feed3)).child("email").getValue()).equals(extract_mail(feed3))) {
-                feed.add(feed2);
+//            Toast.makeText(ew_feed_page.this,dsFriends.child(feed3).child("email").getValue().toString().trim()+" "+extract_mail(feed3),Toast.LENGTH_LONG).show();
+            if(dsFriends.child(convert_mail(feed3)).child("email").exists()) {
+                if ((dsFriends.child(convert_mail(feed3)).child("email").getValue()).equals(extract_mail(feed3))) {
+                    feed.add(feed2);
+                }
             }
         }
         int p = feed.size();

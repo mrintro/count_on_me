@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class searchbar extends AppCompatActivity {
@@ -30,31 +31,43 @@ public class searchbar extends AppCompatActivity {
     DatabaseReference db;
     xyz adapter;
 
+    private RememberUser userx;
+    private String user_mail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_searchbar);
 
+        userx=new RememberUser(this);
+        HashMap<String, String> reg_user = userx.getUserDetails();
+        user_mail = reg_user.get(RememberUser.EMAIL);
+
         lv = (ListView)findViewById(R.id.lisss);
 
-        db= FirebaseDatabase.getInstance().getReference();
-        db.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                DataSnapshot ds=dataSnapshot.child("users");
-                for(DataSnapshot ds1 : ds.getChildren()){
-                    Emailndname nameaaja=ds1.getValue(Emailndname.class);
+        if(mylist.size()==0) {
+            db = FirebaseDatabase.getInstance().getReference();
+            db.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    DataSnapshot ds = dataSnapshot.child("users");
+                    for (DataSnapshot ds1 : ds.getChildren()) {
+                        if(ds1.child("email").getValue().toString().equals(user_mail)){
+                            continue;
+                        }
+                        Emailndname nameaaja = ds1.getValue(Emailndname.class);
 //                    Toast.makeText(searchbar.this,nameaaja,Toast.LENGTH_SHORT).show();
-                    mylist.add(nameaaja);
+                        mylist.add(nameaaja);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
     public void getdata(String query){
         ArrayList<Emailndname> output = new ArrayList<>();

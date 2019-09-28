@@ -46,6 +46,7 @@ public class Registration extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_registration);
         Intent intent=getIntent();
         username = (EditText) findViewById(R.id.rname);
@@ -126,11 +127,12 @@ public class Registration extends AppCompatActivity {
 //                            downUrl = Objects.requireNonNull(task.getResult()).getDownloadUrl().toString();
 //                            downUrl=task.getResult().getUploadSessionUri().toString();
                             userdetails.setImage(downUrl);
-                            Toast.makeText(Registration.this,downUrl,Toast.LENGTH_LONG).show();
+                            Toast.makeText(Registration.this,"abc"+downUrl,Toast.LENGTH_LONG).show();
                             aiseHi(key_email,userdetails);
                         }
                         else {
-                            Toast.makeText(Registration.this,"Try again",Toast.LENGTH_LONG).show();
+                            progressDialog.dismiss();
+                            Toast.makeText(Registration.this,"Check Your Interner Connection",Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -220,14 +222,14 @@ public class Registration extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        Toast.makeText(Registration.this,"yaha?",Toast.LENGTH_LONG).show();
+//        Toast.makeText(Registration.this,"yaha?",Toast.LENGTH_LONG).show();
         super.onActivityResult(requestCode, resultCode, data);
 
         //FirebaseUser currentUser=FirebaseAuth.getInstance().getCurrentUser();
         //String mail=currentUser.getEmail().toString().trim();
         Uri imgUri;
         if(requestCode== GALLERY_PICK ){
-            Toast.makeText(Registration.this,"yaha bhi?",Toast.LENGTH_LONG).show();
+//            Toast.makeText(Registration.this,"yaha bhi?",Toast.LENGTH_LONG).show();
             imgUri=data.getData();
             CropImage.activity(imgUri).setAspectRatio(1,1).start(Registration.this);
 //            CropImage.activity(imgUri).setAspectRatio(1,1).start(this);
@@ -236,12 +238,12 @@ public class Registration extends AppCompatActivity {
 //                    .start(this);
         }
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            Toast.makeText(Registration.this," aur yaha?",Toast.LENGTH_LONG).show();
+//            Toast.makeText(Registration.this," aur yaha?",Toast.LENGTH_LONG).show();
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 resultUri = result.getUri();
                 storeImg= FirebaseStorage.getInstance().getReference();
-                Toast.makeText(Registration.this,"Idhr tk to agya",Toast.LENGTH_LONG).show();
+//                Toast.makeText(Registration.this,"Idhr tk to agya",Toast.LENGTH_LONG).show();
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
