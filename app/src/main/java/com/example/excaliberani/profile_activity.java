@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +40,9 @@ public class profile_activity extends AppCompatActivity {
         mCurrentUser= FirebaseAuth.getInstance().getCurrentUser();
         userId=mCurrentUser.getUid();
         userEmail=mCurrentUser.getEmail();
+        Email orig_mail= new Email(userEmail);
+        final String key_email=orig_mail.convert_mail();
+//        Toast.makeText(this, key_email, Toast.LENGTH_SHORT).show();
 //        getName.addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -69,6 +73,7 @@ public class profile_activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(profile_activity.this,FriendList.class);
+     //           i.putExtra("current_user_email",key_email);
                 startActivity(i);
             }
         });

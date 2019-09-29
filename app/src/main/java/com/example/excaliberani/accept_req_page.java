@@ -5,10 +5,15 @@ package com.example.excaliberani;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 //import android.widget.EditText;
@@ -28,7 +33,7 @@ public class accept_req_page extends AppCompatActivity {
 
     DatabaseReference requestDatabase,fetch;
     TextView emails;
-    String email;
+    String email,phoneNo;
     TextView submitTo,request,dropLocation,pickUpLocation;
     Button acceptOrder,showInfo;
 
@@ -43,14 +48,14 @@ public class accept_req_page extends AppCompatActivity {
         pickUpLocation=findViewById(R.id.excal_pick_up);
         dropLocation=findViewById(R.id.excal_drop_location);
         request=findViewById(R.id.excal_request);
-        emails=findViewById(R.id.excal_order_of);
+//        emails=findViewById(R.id.excal_order_of);
         acceptOrder=findViewById(R.id.excal_accept_order);
 
         emails.setText(email);
 
         requestDatabase= FirebaseDatabase.getInstance().getReference("Requests").child(convert_mail(email));
         fetch= FirebaseDatabase.getInstance().getReference();
-        showInfo=findViewById(R.id.excal_show_info);
+//        showInfo=findViewById(R.id.excal_show_info);
         requestDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -85,6 +90,18 @@ public class accept_req_page extends AppCompatActivity {
                                     }
                                 });
                                 Intent i=new Intent(accept_req_page.this,accept_req_page.class);
+                                //send sms
+                                fetch.child("users").child(convert_mail(semail)).child("phonenumber").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        phoneNo=dataSnapshot.getValue().toString().trim();
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                                sendSms(phoneNo);
                                 startActivity(i);
                             }
                         }).setNegativeButton("No",null);
@@ -93,7 +110,6 @@ public class accept_req_page extends AppCompatActivity {
             }
         });
     }
-
     private String extract_mail(String orig_mail) {
         int n=orig_mail.length();
         for(int i=0;i<n-5;i++){
@@ -119,6 +135,42 @@ public class accept_req_page extends AppCompatActivity {
             }
         }
         return orig_mail;
+    }
+
+    protected void sendSms(final String phoneNo){
+        final int SEND_SMS_PERMISSION_REQUEST_CODE=1;
+        Button send;
+
+//        setContentView(R.layout.activity_send_sms);
+//        send=findViewById(R.id.send_sms);
+
+        if(checkPermission(Manifest.permission.SEND_SMS)){
+//            send.setEnabled(true);
+//            send.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    onSend(phoneNo);
+//                }
+//            });
+            onSend(phoneNo);
+        }
+        else{
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.SEND_SMS},SEND_SMS_PERMISSION_REQUEST_CODE);
+        }
+    }
+    public void onSend(String phoneNo){
+        if(checkPermission(Manifest.permission.SEND_SMS)){
+            SmsManager smsManager=SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNo,null,"Hey.I am near your request location.I'll be doing your task.Open the app for further details and contact me for the updated.",null,null);
+            Toast.makeText(accept_req_page.this,"Message sent!",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(accept_req_page.this,"Try again!",Toast.LENGTH_LONG).show();
+        }
+    }
+    public boolean checkPermission(String permission){
+        int check= ContextCompat.checkSelfPermission(this,permission);
+        return (check== PackageManager.PERMISSION_GRANTED);
     }
 
 }

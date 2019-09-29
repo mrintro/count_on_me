@@ -91,7 +91,7 @@ public class Login_activity extends AppCompatActivity {
                 }
 
                 else  if(!(email.isEmpty() && pwd.isEmpty())) {
-                    progressDialog.setMessage("Registering...");
+                    progressDialog.setMessage("Logging In...");
                     progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();

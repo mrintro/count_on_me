@@ -2,6 +2,9 @@ package com.example.excaliberani;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -41,6 +44,7 @@ public class ew_feed_page extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ew_feed_page);
+        getSupportActionBar().hide();
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("LOADING");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -51,7 +55,8 @@ public class ew_feed_page extends AppCompatActivity {
         userx=new RememberUser(this);
         HashMap<String, String> reg_user = userx.getUserDetails();
         user_mail = reg_user.get(RememberUser.EMAIL);
-        lv = (ListView) findViewById(R.id.excal_list_feed);
+        lv = (ListView) findViewById(R.id.recycle);
+//        lv.setLayoutManager(new LinearLayoutManager(this));
 
         db= FirebaseDatabase.getInstance().getReference();
         db.addValueEventListener(new ValueEventListener() {
@@ -77,34 +82,35 @@ public class ew_feed_page extends AppCompatActivity {
 
 
     private void runadap() {
-        CustumAdapter cd = new CustumAdapter(ew_feed_page.this,feed,names);
+        CustumAdapter cd = new CustumAdapter(this,feed,names);
         lv.setAdapter(cd);
     }
 
     private void fetch(DataSnapshot dataSnapshot) {
-        /*FeedData feed2;
-        feed2 = dataSnapshot.child("Requests").child("aniketpanwar_dot_1998@gmail_dot_com").getValue(FeedData.class);
-        String str = feed2.getEmail();
-        t1.setText(str);*/
+
         FirebaseUser firebaseUser;
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        String email=firebaseUser.getEmail();
-        Toast.makeText(ew_feed_page.this,email,Toast.LENGTH_LONG).show();
+
+       String email=convert_mail(user_mail);
+//        Toast.makeText(ew_feed_page.this,email,Toast.LENGTH_LONG).show();
         DataSnapshot ds1 = dataSnapshot.child("Requests"),dsFriends= dataSnapshot.child("friend_list").child(convert_mail(user_mail));
         for(DataSnapshot ds:ds1.getChildren()){
-            FeedData feed2;
-            feed2 = ds.getValue(FeedData.class);
-            if(feed2.getEmail().equals(user_mail)){
-                continue;
-            }
-            Toast.makeText(ew_feed_page.this,feed2.getEmail(),Toast.LENGTH_LONG).show();
-            String feed3=feed2.getEmail();
-            feed3=convert_mail(feed3);
-            String a=dsFriends.getKey().toString().trim();
-//            Toast.makeText(ew_feed_page.this,dsFriends.child(feed3).child("email").getValue().toString().trim()+" "+extract_mail(feed3),Toast.LENGTH_LONG).show();
-            if(dsFriends.child(convert_mail(feed3)).child("email").exists()) {
-                if ((dsFriends.child(convert_mail(feed3)).child("email").getValue()).equals(extract_mail(feed3))) {
-                    feed.add(feed2);
+            for(DataSnapshot inds:ds.getChildren()) {
+                FeedData feed2;
+                feed2 = inds.getValue(FeedData.class);
+                if (feed2.getEmail().equals(user_mail)) {
+                    continue;
+                }
+
+                String feed3=feed2.getEmail();
+                feed3=convert_mail(feed3);
+                String a=dsFriends.getKey().toString().trim();
+                if(dsFriends.child(convert_mail(feed3)).child("email").exists()) {
+                    if ((dsFriends.child(convert_mail(feed3)).child("email").getValue()).equals(extract_mail(feed3))) {
+                        feed.add(feed2);
+                    }
+                    Toast.makeText(ew_feed_page.this,feed.get(0).getEmail(),Toast.LENGTH_LONG).show();
+
                 }
             }
         }

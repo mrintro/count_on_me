@@ -34,7 +34,7 @@ public class Registration extends AppCompatActivity {
 
 
     private ProgressDialog progressDialog;
-    Button proceedButton,uploadImage;
+    Button proceedButton;
     EditText username,emailid,phone,passwd; //for fetching details from editText(registration form)
     String name,email,phonenumber,password,body,downUrl; //where actual details of user are stored
     private DatabaseReference databaseReference,imgDatabase;
@@ -56,22 +56,6 @@ public class Registration extends AppCompatActivity {
         proceedButton = (Button) findViewById(R.id.rbutton);
         progressDialog = new ProgressDialog(this);
         databaseReference= FirebaseDatabase.getInstance().getReference();
-        uploadImage=findViewById(R.id.rprofile);
-
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent gallery=new Intent();
-                gallery.setType("image/*");
-                gallery.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(gallery,"SELECT IMAGE"),GALLERY_PICK);
-//                CropImage.activity()
-//                        .setGuidelines(CropImageView.Guidelines.ON)
-//                        .start(Registration.this);
-            }
-        });
-
-
         final Userdetails userdetails= new Userdetails();
 
 
@@ -97,48 +81,6 @@ public class Registration extends AppCompatActivity {
                 userdetails.setpassword(password);
 
 
-
-
-                path=storeImg.child("images").child(email+".jpg");
-//                path.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        Task<Uri>urlTask=taskSnapshot.getStorage().getDownloadUrl();
-//                        while(!urlTask.isSuccessful()){
-//                            downUrl=urlTask.getResult().toString().trim();
-//                        }
-//                        userdetails.setImage(downUrl);
-//                        aiseHi(key_email,userdetails);
-//                    }
-//                });
-                path.putFile(resultUri).addOnCompleteListener(
-                        new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                        path.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                            @Override
-//                            public void onSuccess(Uri uri) {
-//                                downUrl=uri.toString().trim();
-//                            }
-//                        });
-
-                        if (task.isSuccessful()){
-//                              downUrl=task.getResult().getUploadSessionUri().toString();
-//                            downUrl = Objects.requireNonNull(task.getResult()).getDownloadUrl().toString();
-//                            downUrl=task.getResult().getUploadSessionUri().toString();
-                            userdetails.setImage(downUrl);
-                            Toast.makeText(Registration.this,"abc"+downUrl,Toast.LENGTH_LONG).show();
-                            aiseHi(key_email,userdetails);
-                        }
-                        else {
-                            progressDialog.dismiss();
-                            Toast.makeText(Registration.this,"Check Your Interner Connection",Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                });
-
-
             }
         });
     }
@@ -159,8 +101,11 @@ public class Registration extends AppCompatActivity {
                                             mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
+                                                    progressDialog.dismiss();
                                                     if(task.isSuccessful()){
+
                                                         Toast.makeText(Registration.this,"Registered Successfully\n Please Verify Your Mail Id",Toast.LENGTH_LONG).show();
+
                                                         Intent intent1 = new Intent(Registration.this,Login_activity.class);
                                                         startActivity(intent1);
                                                     }
@@ -171,11 +116,11 @@ public class Registration extends AppCompatActivity {
                                             });
                                         }
                                         else{
+                                            progressDialog.dismiss();
                                                     Toast.makeText(Registration.this,"Check Your Internet Connection",Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 });
-                                progressDialog.dismiss();
                             }
                             else{
                                 progressDialog.dismiss();
@@ -217,39 +162,6 @@ public class Registration extends AppCompatActivity {
             }
         }
         return;
-
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        Toast.makeText(Registration.this,"yaha?",Toast.LENGTH_LONG).show();
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //FirebaseUser currentUser=FirebaseAuth.getInstance().getCurrentUser();
-        //String mail=currentUser.getEmail().toString().trim();
-        Uri imgUri;
-        if(requestCode== GALLERY_PICK ){
-//            Toast.makeText(Registration.this,"yaha bhi?",Toast.LENGTH_LONG).show();
-            imgUri=data.getData();
-            CropImage.activity(imgUri).setAspectRatio(1,1).start(Registration.this);
-//            CropImage.activity(imgUri).setAspectRatio(1,1).start(this);
-//            CropImage.activity(imgUri)
-//                    .setAspectRatio(1,1)
-//                    .start(this);
-        }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-//            Toast.makeText(Registration.this," aur yaha?",Toast.LENGTH_LONG).show();
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                resultUri = result.getUri();
-                storeImg= FirebaseStorage.getInstance().getReference();
-//                Toast.makeText(Registration.this,"Idhr tk to agya",Toast.LENGTH_LONG).show();
-
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-                Toast.makeText(Registration.this,error.toString(),Toast.LENGTH_LONG).show();
-            }
-        }
 
     }
 }
