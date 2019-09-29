@@ -48,7 +48,7 @@ public class Make_Requests_Activity extends AppCompatActivity {
         makereq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String reqs,pickups,dropdowns;
+                final String reqs,pickups,dropdowns;
                 reqs = req.getText().toString().trim();
                 pickups = pickup.getText().toString().trim();
                 dropdowns = dropdown.getText().toString().trim();
@@ -63,7 +63,9 @@ public class Make_Requests_Activity extends AppCompatActivity {
                     db.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Task<Void> task = db.child("Requests").child(str).setValue(feedData).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            int size= (int)dataSnapshot.child("Requests").child(str).getChildrenCount();
+
+                            Task<Void> task = db.child("Requests").child(str).child(str+reqs+dropdowns).setValue(feedData).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     Toast.makeText(Make_Requests_Activity.this,"SUCCESSFULLY PLACED REQUEST",Toast.LENGTH_SHORT).show();

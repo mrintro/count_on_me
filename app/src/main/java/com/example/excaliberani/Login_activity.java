@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,15 +41,19 @@ public class Login_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        progressDialog=new ProgressDialog(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_activity);
         getSupportActionBar().hide();
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.lemail);
+        emailId.setInputType(InputType.TYPE_CLASS_TEXT);
         password = findViewById(R.id.lpass);
         btnSignIn = findViewById(R.id.lbutton);
         db= FirebaseDatabase.getInstance().getReference();
         final RememberUser user=new RememberUser(this);
+
         //tvSignUp = findViewById(R.id.textView);
         //aniketWalaKaam = findViewById(R.id.excal_final_accpet_request);
 
@@ -57,7 +62,6 @@ public class Login_activity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                 FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                // Toast.makeText(LoginActivity.this,mFirebaseUser.toString(),Toast.LENGTH_LONG).show();
                 if( mFirebaseUser != null ){
 //                    Toast.makeText(Login_activity.this,"You are logged in",Toast.LENGTH_SHORT).show();
                     //Intent i = new Intent(LoginActivity.this, HomeActivity.class);
@@ -85,21 +89,30 @@ public class Login_activity extends AppCompatActivity {
                 else  if(email.isEmpty() && pwd.isEmpty()){
                     Toast.makeText(Login_activity.this,"Fields Are Empty!",Toast.LENGTH_SHORT).show();
                 }
+
                 else  if(!(email.isEmpty() && pwd.isEmpty())) {
-                        mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(Login_activity.this, new OnCompleteListener<AuthResult>() {
+                    progressDialog.setMessage("Logging In...");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
+                    mFirebaseAuth.signInWithEmailAndPassword(email, pwd).addOnCompleteListener(Login_activity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (!task.isSuccessful()) {
+                                    progressDialog.dismiss();
                                     Toast.makeText(Login_activity.this, "Wrong Credetials", Toast.LENGTH_SHORT).show();
                                 } else {
+                                    progressDialog.dismiss();
                                     if(mFirebaseAuth.getCurrentUser().isEmailVerified()){
                                         user.createLoginSession(email, pwd);
                                         finish();
                                         Intent intToHome = new Intent(Login_activity.this, Main_Menu.class);
                                         intToHome.addFlags(intToHome.FLAG_ACTIVITY_NEW_TASK|intToHome.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intToHome);
+                                        finish();
                                     }
                                     else{
+                                        progressDialog.dismiss();
                                         Toast.makeText(Login_activity.this,"Plese Verify Your Email First",Toast.LENGTH_SHORT).show();
                                     }
 

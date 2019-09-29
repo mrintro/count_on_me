@@ -6,26 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:src="@drawable/ex"
+        android:scaleType="centerCrop"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:contentDescription="@string/app_name"/>
 
     <ListView
-        android:id="@+id/excal_list_feed"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="40dp" />
-
-    <Button
-        android:id="@+id/log_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/excal_list_feed"
+        android:layout_height="633dp"
         android:layout_alignParentStart="true"
-
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="168dp"
-        android:layout_marginTop="-50dp"
-        android:layout_marginBottom="-8dp"
-        android:gravity="center"
-        android:text="Log Out" />
+        android:id="@+id/recycle"/>
+
 
 </RelativeLayout>

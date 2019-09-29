@@ -40,9 +40,9 @@ public class UserProfile extends AppCompatActivity {
         email=intent.getStringExtra("email");
 
         mCurrentState="not_friends";
-        button1=findViewById(R.id.excal_user_request);
-        button2=findViewById(R.id.excal_user_accept);
-        username=findViewById(R.id.excal_user_username);
+        button1=findViewById(R.id.send);
+        button2=findViewById(R.id.doosra);
+        username=findViewById(R.id.naam);
         databaseReference= FirebaseDatabase.getInstance().getReference();
         mData= FirebaseDatabase.getInstance().getReference();
         mFriendData= FirebaseDatabase.getInstance().getReference();
