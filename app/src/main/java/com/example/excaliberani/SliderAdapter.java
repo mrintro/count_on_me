@@ -45,7 +45,7 @@ public class SliderAdapter extends PagerAdapter {
             R.drawable.news,
             R.drawable.profile,
             R.drawable.makereq,
-            R.drawable.makereq
+            R.drawable.cancel
     };
 
     public String[] slide_headings = {

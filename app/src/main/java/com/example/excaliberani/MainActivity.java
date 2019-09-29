@@ -35,5 +35,7 @@ public class MainActivity extends AppCompatActivity {
         RememberUser rememberUser=new RememberUser(this);
         rememberUser.checkLogin();
         finish();
+        Intent i = new Intent(this,splash.class);
+        startActivity(i);
     }
 }

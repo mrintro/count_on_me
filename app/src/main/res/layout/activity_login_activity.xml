@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
     <ImageView
         android:id="@+id/ivBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="430dp"
+        android:layout_height="354dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
 
 
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-3dp"
-        android:layout_marginLeft="-3dp"
-        android:layout_marginTop="-5dp"
-        android:layout_marginBottom="0dp"
         android:scaleType="fitStart"
-        android:src="@drawable/ex" />
+        android:src="@drawable/ex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/lemail"
@@ -28,11 +30,14 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginBottom="196dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/sign"
         android:hint="E-mail"
-        android:paddingLeft="18dp" />
+        android:paddingLeft="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/lpass"
@@ -41,12 +46,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="43dp"
-        android:layout_marginBottom="121dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/sign"
         android:hint="Password"
         android:inputType="textPassword"
-        android:paddingLeft="18dp" />
+        android:paddingLeft="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lemail" />
 
     <Button
         android:id="@+id/lbutton"
@@ -55,38 +63,48 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="43dp"
-        android:layout_marginBottom="53dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/bgbutton"
         android:text="Log-In"
         android:textColor="#0F0F0F"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lpass" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="240dp"
         android:layout_height="74dp"
-        android:layout_alignTop="@+id/ivBackground"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="379dp"
-        android:layout_marginBottom="283dp"
         android:gravity="center"
         android:text="Welcome Back!"
         android:textColor="#000000"
         android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivBackground" />
 
     <TextView
-        android:layout_width="240dp"
-        android:layout_height="74dp"
+        android:id="@+id/textView3"
+        android:layout_width="239dp"
+        android:layout_height="52dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="-10dp"
+        android:layout_marginTop="24dp"
         android:gravity="center"
         android:text=" Swipe Left to Register"
         android:textColor="#FF0000"
         android:textSize="15dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lbutton" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

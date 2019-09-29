@@ -31,6 +31,7 @@ public class profile_activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_profile_activity);
 
         username=findViewById(R.id.excal_my_username);
